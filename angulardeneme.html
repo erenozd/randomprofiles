@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body ng-app="myApp">
+  <div ng-controller="myCtrl">
+    <div class="row">
+    <div class="card" ng-repeat="profile in data" >
+      <img ng-src={{profile.picture.large}} class="card-img-top" style="width:342px;height: 200px;">
+      <div class="card-body">
+        <h5 class="card-title"  > {{profile.name.first+" "+profile.name.last}}</h5>
+        <p class="card-text" style="width: 300px;"><strong>mail:</strong>{{profile.email}}</p>
+        <p class="card-text"><strong>phone:</strong>{{profile.phone}}</p>
+        <p class="card-text"><strong>phone:</strong>{{profile.phone}}</p>
+
+        <a href="#" class="btn btn-primary">tıkla</a>
+      </div>
+    </div>
+  </div>
+  <script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+      $http({
+        method: 'GET',
+        url: 'https://randomuser.me/api/?results=10',
+       }).then(function success(response) {
+        console.log(response);
+        $scope.data=response.data.results;
+      }, function error(response) {});
+    });
+  </script>
+</body>
+</html>
